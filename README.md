@@ -1,4 +1,4 @@
-# CS488 Fall 2015 Project Code
+# CS488 Spring 2022 Project Code
 
 ---
 
@@ -49,4 +49,4 @@ Sorry for all of the hardcore Microsoft fans out there.  We have not had time to
 
     $ premake4 vs2013
 
- This should point you in the general direction.# RayTracer
+ This should point you in the general direction.
