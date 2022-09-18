@@ -1,0 +1,8 @@
+COMPILATION
+To run the program, go into the A1 directory and from there run the following commands:
+premake4 gmake
+make
+./a1 to execute the program.
+MANUAL
+There are no notable additions to the functionality of the program.
+

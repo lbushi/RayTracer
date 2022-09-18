@@ -1,0 +1,15 @@
+COMPILATION
+
+In order to compile the program, you must go the A0 directory of the folder and from there run the following commands:
+premake4 gmake
+make
+Afterwards, in order to run the program simply do:
+./A0
+In other words, the original workflow of the build has not changed.
+
+
+MANUAL
+
+There is only onde detail that is perhaps worth mentioning here and that is the range of the rotation slider of the triangle.
+It is set to have values in the interval [0, 2*PI] so it allows for exactly one full rotation. Other than this, there are no other
+details or assumptions worthy of mentionong here.

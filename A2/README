@@ -1,0 +1,10 @@
+COMPILATION
+To compile the code, unzip the A2 folder and put it in the cs488 folder.
+Then cd into the unzipped A2 folder and execute the following commands:
+premake4 gmake
+make
+Afterwards, run ./A2 to execute the program.
+
+MANUAL
+The functionality and the interface of the app coincides completely with
+the specification so there is nothing more to be added here.

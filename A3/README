@@ -1,0 +1,31 @@
+COMPILATION
+To compile the code, unzip the A3 folder and put it in the cs488 folder.
+Then cd into the unzipped A3 folder and execute the following commands:
+premake4 gmake
+make
+Afterwards, run the following comamnd to execute the program:
+./A3 Assets/puppet.lua
+
+MANUAL
+The functionality and the interface of the application conforms to the specifications of the assigment.
+In order to indicate whether a redo/undo operation was valid or invalid i have included a message in the GUI
+that tells the user the state of the last redo/undo command that they did and it can be one of "Successful" or 
+"Failed".
+
+The structure of the puppet consists of the following:
+- A root node with a conceptual "joint" called the torso joint as its only child where we store the 
+transformations of the puppet as a whole such as translation or rotation. 
+- The torso joint again has an only child, the torso, which is a geometric primitive which will be subjected to the 
+transformations of all joints on the path from the root to itself which in this case includes only the torso joint.
+- The torso subtree is then identical to the one suggested in the assignment spec except that internal joint nodes 
+have been added according to their position in the human body such as left shoulder joint between the shoulders
+and the left arm and the right ankle joint between the right calf and te right foot. When we say "between" we mean that the joint has the first body part as a parent and the second body part as a child. And again, these jonint store
+transforms that accumulate from any path from the root to any primitive to yield their final model matrix. For example, the right calf will be multiplied by the transforms in knee joint, right thigh joint and torso joint.
+
+The data structures used in the assignment have remained the same for the most part except that the joint nodes
+have fields which represent their current angles and their position in model space and geometric nodes have a field 
+called "parent" that points to the joint immediately above it( the torso joint does not count). So shoulders would 
+have a nullptr for a parent and the right thigh would have the right hip joint for a parent. This helps implement 
+picking correctly. Furthermore, i have modified the lua cpp files that drive the lua script to allow for 2 additional 
+functionalities. The first is allowing us to set the parent field of geometric nodes and the second is to allow us to 
+set a position for each joint. The other changes are minuscule in comparison to the above.

@@ -1,0 +1,64 @@
+COMPILATION
+
+To compile the program, unzip the A5 folder and place it in the cs488 directory
+Then cd into the A5 directory and run the following commands:
+premake4 gmake
+make
+Afterwards, cd into the Assets directory of the A5 folder and invoke the program as follows:
+../A5 <script_name> 
+where <script_name> is the name of the lua script that defines the file for example simple.lua.
+This should produce a corresponding .png file that can then be inspected.
+
+MANUAL
+
+The most significant change from a usage perspective of the ray tracer comes from the material and 
+light creation functions in the lua scripts. In particular, here is a material pulled from a lua script which 
+represents a glossy mirror:
+
+glossymirror = gr.material({0, 0, 0}, {0, 0, 0}, 0, {1, 1, 1}, 0, 1, 4)
+It now has 7 arguments and all materials must have this exact form. The first 3 are old news and the fourth one
+was added in A4 as a reflection triplet encoding how much of incoming light is reflected from this surface.
+In the case of a mirror for example, it reflects all light. 
+The next parameter encodes whether the material is refractive or not. It takes values 0 or 1 i.e False of True.
+If 1, it is refractive and if 0 if it is not refractive.
+The next parameter is the refractive index and only has meaning when the previous parameter is 1.
+The next parameter encoded whether the material is glossy or not. If glossy, reflections bounce off while also 
+scattering around a bit and this parameter quantifies the scattering so that if the parameter value is x, then x*x
+reflection rays will be scattered (x per row and x per column with respect to the scattering plane).
+A value of zero indicates the material is not glossy and if greater than zero then it is glossy.
+
+Cone and cylinder primitives have also been added to the ray tracer as gr.cone(name) and gr.cylinder(name).
+
+The next change comes in the form of the function gr.texture(filenamename) that creates a texture from the given 
+filename. Nothing much to add here except that it can then be used procedurally as a material wherever a 
+traditional material would be used.
+
+The next change concerns the light function. Namely it now has two extra parameters that control the creation of
+a light source. The next to last parameter indicated whether the light has area so it takes values 1 or zero and the last parameter only has meaning when the former is not zero and indicates the size of the side of the square representing the light where the size should be positive.
+
+Finally, there is also a gr.set_normals(filename) function that slaps a normal map onto a geometry node fetched from
+the file with the given name.
+
+As per controllong the ray tracing behaviour that is not dependent on the scene itself, there is a "control panel"
+of several global constants in A5.cpp that dictate things such as focal length, aperture and 
+number of lens samples for depth of field, pixel sample count for anti aliasing, reflection bounce depth 
+for an individual ray and number of times to sample a light source when creating soft shadows for area lights.
+
+All in all, the ray tracer supports the following:
+
+-- Texture mapping for spheres and planes
+-- Bilinear filtering for textures
+-- Normal mapping for planes
+-- Soft shadows
+-- Cone and cylinder primitives
+-- Depth of field
+-- Anti aliasing
+-- Mirror reflections(implemented in A4)
+-- Glossy reflections
+-- Refraction
+
+The screenshot.png filed displays many of the things above. There is texture mapping for the ground plane,
+cyllinder and cone rendered where the cyllinder has a glass material and the cone has a water material as seen by the 
+light refraction they produce. There is mirror reflections as well. I have also included two other screenshots that
+display glossy reflections off a mirror and an unpolished reflection off a mirror achieved with normal mapping.
+They are titled normal_mapping.png and glossy_reflections.png.
